@@ -1,0 +1,13 @@
+body {
+	margin:0;
+	padding:0;
+	background-color: #F0F0F0;
+	font-size:18px !important;
+}
+.container {
+	width:940px;
+	margin:0 auto;
+}
+li {
+	list-style-type: none;
+}
