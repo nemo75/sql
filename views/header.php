@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="../public/css/style.css">
 </head>
 <body>
-	<div class="ui menu">
+	<div class="ui inverted black menu">
 		<a href="?page=add" class="item">Add user</a>
 		<a href="?page=list" class="item">User list</a>
 	</div>

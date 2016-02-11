@@ -15,7 +15,7 @@
 		<input type="date" name="naissance" id="naissance" value="<?php echo $editable->naissance; ?>">
 	</div>
 	<div class="field">
-		<label for="nom">Nom</label>
+		<label for="nom">Tel</label>
 		<input type="text" name="tel" id="tel" value="<?php echo $editable->tel; ?>">
 	</div>
 	<div class="field">
@@ -23,6 +23,6 @@
 		<textarea name="adresse" id="adr" placeholder="Entrez votre adresse" rows="4" cols="50"><?php echo $editable->adresse; ?></textarea>
 	</div>
 	<div>
-		<button class='ui green button'>Modifier</button>
+		<button class='ui green button'>Valider</button>
 	</div>
 </form>

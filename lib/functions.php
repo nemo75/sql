@@ -1,8 +1,8 @@
  <?php
 function connect(){
-	ORM::configure('mysql:host=localhost;dbname=fake');
+	ORM::configure('mysql:host=localhost;dbname=crm');
 	ORM::configure('username', 'root');
-	ORM::configure('password', 'root');
+	ORM::configure('password', 'MOTDEPASSE');
 	ORM::configure('error_mode', PDO::ERRMODE_WARNING);
 	ORM::configure('return_result_sets', true);
 }
@@ -12,9 +12,20 @@ function getUser(){
 
 	return $person;
 }
+function getMessages($id){
+	$message = ORM::for_table('messages')->where('user_id', $id)->find_many();
+
+	return $message;
+}
 function getPeople(){
 	$people = ORM::for_table('users')->find_many();
 	return $people;
+}
+function flash($msg, $state="succes"){
+	$out = '<div class="ui message ' .$state.'">';
+	$out .= $msg;
+	$out .= '</div>';
+	return $out;
 }
 function addUser($data){
 	$newUser = ORM::for_table('users')->create();
@@ -38,16 +49,21 @@ function editUser($data){
 
 	$user->save();
 }
+
 function start(){
 
 	if(!empty($_POST)) {
 		if(!isset($_POST['id'])) {
 			addUser($_POST);
+			$fla = flash("Ajout reussie");
+
 		} else {
 			editUser($_POST);
+			$fla = flash("Edition reussie");
 		}
 		$people = getPeople();
-		return require '../views/list.php';
+		require '../views/list.php';
+		return;
 	}
 	if(!isset($_GET['id']) && !isset($_GET['page'])) {
 		$people = getPeople();
@@ -60,10 +76,6 @@ function start(){
 		$people = getPeople();
 		return require '../views/list.php';
 	}
-	if (isset($_GET['id'])) {
-		$user = getUser();
-		require '../views/show.php';
-	}
 	if(isset($_GET['page']) && $_GET['page'] === 'edit') {
 
 		if(!isset($_GET['id'])){
@@ -75,4 +87,13 @@ function start(){
 		return require '../views/edit.php';
 
 	}
+	if (isset($_GET['id'])) {
+		$user = getUser();
+		$message = getMessages($_GET['id']);
+		require '../views/show.php';
+	}
+}
+function dd($var){
+	var_dump($var);
+	die();
 }
